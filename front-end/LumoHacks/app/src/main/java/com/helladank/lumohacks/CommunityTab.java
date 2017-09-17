@@ -76,9 +76,7 @@ public class CommunityTab extends Fragment {
                 Log.d(TAG, res);
                 usersList = parseJSON(res);
                 ListAdapter adapter = new SimpleAdapter(getActivity().getApplicationContext(), usersList,
-                        R.layout.community_user, new String[]{TAG_FIRST_NAME, TAG_LAST_NAME,
-                        TAG_USER_NAME, TAG_GOAL, TAG_STREAK}, new int[]{R.id.firstName,
-                        R.id.lastName, R.id.userName, R.id.goal, R.id.streak});
+                        R.layout.community_user, new String[]{"fullname", "goal", "streak"}, new int[]{R.id.fullName, R.id.goal, R.id.streak});
 
                 listView.setAdapter(adapter);
             }
@@ -111,7 +109,6 @@ public class CommunityTab extends Fragment {
 
                     String firstName = c.getString(TAG_FIRST_NAME);
                     String lastName = c.getString(TAG_LAST_NAME);
-                    String username = c.getString(TAG_USER_NAME);
                     String goal = c.getString(TAG_GOAL);
                     String streak = c.getString(TAG_STREAK);
 
@@ -119,11 +116,9 @@ public class CommunityTab extends Fragment {
                     HashMap<String, String> user = new HashMap<String, String>();
 
 // adding every child node to HashMap key => value
-                    user.put("firstname", firstName);
-                    user.put("lastname", lastName);
-                    user.put("username", username);
-                    user.put("goal", goal);
-                    user.put("streak", streak);
+                    user.put("fullname", firstName + " " + lastName);
+                    user.put("goal", "Goal: " + goal);
+                    user.put("streak", "STREAK: " + streak);
 // adding student to students list
                     usersList.add(user);
                 }
