@@ -24,7 +24,7 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.calendar_layout);
-        mCalendarView = (CalendarView) findViewById(R.id.calendarView);
+        mCalendarView = (CalendarView) findViewById(R.id.calendar_view);
         redX = (ImageButton) findViewById(R.id.redX);
 
         mCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {

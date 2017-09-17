@@ -2,18 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <CalendarView
-        android:id="@+id/calendarView"
+        android:id="@+id/calendar_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <ImageButton
         android:id="@+id/redX"
         android:layout_width="match_parent"
-        android:layout_height="134dp"
+        android:layout_height="116dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@drawable/red_x" />
+        app:srcCompat="@drawable/red_x"
+        android:layout_weight="0.34" />
 
 </LinearLayout>

@@ -57,7 +57,6 @@ public class GoalsTab extends Fragment {
                 final Button newGoal = new Button(getActivity());
                 newGoal.setBackgroundColor(0xFF8285C0);
                 newGoal.setTextColor(0xFFFFFFFF);
-                newGoal.setPaddingRelative(0, 8, 0, 0);
 
                 LayoutInflater li = LayoutInflater.from(getActivity());
                 View promptsView = li.inflate(R.layout.prompts, null);

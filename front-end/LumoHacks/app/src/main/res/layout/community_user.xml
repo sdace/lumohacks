@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:text="Example Name"
         android:textSize="20sp"
+        android:textColor="#FF333333"
         android:textStyle="bold" />
 
     <TextView
@@ -16,6 +17,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Current Goal: Do nothing!"
+        android:textColor="#FF555555"
         android:textSize="18sp" />
 
     <TextView
@@ -24,5 +26,6 @@
         android:layout_height="wrap_content"
         android:text="STREAK: "
         android:textSize="14sp"
+        android:textColor="#FF555555"
         android:textStyle="bold" />
 </LinearLayout>
