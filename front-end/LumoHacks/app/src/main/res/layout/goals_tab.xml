@@ -14,13 +14,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:saveEnabled="true">
 
         <LinearLayout
             android:id="@+id/insert_point"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:saveEnabled="true">
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/add_goal"

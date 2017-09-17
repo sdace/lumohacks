@@ -5,11 +5,15 @@ package com.helladank.lumohacks;
  */
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +25,11 @@ import java.util.ArrayList;
 
 public class GoalsTab extends Fragment {
 
+    public static final String GOAL_NUMBER = "com.helladank.GOAL_NUMBER";
+
     private FloatingActionButton btnAddGoal;
     private ArrayList<Button> goals = new ArrayList<>(0);
+    private ArrayList<String> goalNames = new ArrayList<>(0);
 
     private ViewGroup insertPoint;
     private ScrollView scrollView;
@@ -30,7 +37,10 @@ public class GoalsTab extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
+
+
+
         View rootView = inflater.inflate(R.layout.goals_tab, container, false);
 
         btnAddGoal = (FloatingActionButton) rootView.findViewById(R.id.add_goal);
@@ -62,11 +72,14 @@ public class GoalsTab extends Fragment {
                                         // get user input and set it to result
                                         // edit text
                                         newGoal.setText(userInput.getText());
+                                        goalNames.add(userInput.getText().toString());
                                         newGoal.setOnClickListener(new View.OnClickListener() {
 
                                             @Override
                                             public void onClick(View view) {
-                                                System.out.println("testy testy" + (goals.indexOf(newGoal) + 1));
+                                                Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                                                intent.putExtra(GOAL_NUMBER, goals.indexOf(newGoal));
+                                                startActivity(intent);
                                             }
                                         });
                                         goals.add(newGoal);
