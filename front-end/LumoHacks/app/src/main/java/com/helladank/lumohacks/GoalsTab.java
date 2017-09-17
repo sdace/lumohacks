@@ -7,6 +7,7 @@ package com.helladank.lumohacks;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 
 import java.util.ArrayList;
@@ -27,7 +29,7 @@ public class GoalsTab extends Fragment {
 
     public static final String GOAL_NUMBER = "com.helladank.GOAL_NUMBER";
 
-    private FloatingActionButton btnAddGoal;
+    private ImageButton btnAddGoal;
     private ArrayList<Button> goals = new ArrayList<>(0);
     private ArrayList<String> goalNames = new ArrayList<>(0);
 
@@ -43,7 +45,7 @@ public class GoalsTab extends Fragment {
 
         View rootView = inflater.inflate(R.layout.goals_tab, container, false);
 
-        btnAddGoal = (FloatingActionButton) rootView.findViewById(R.id.add_goal);
+        btnAddGoal = (ImageButton) rootView.findViewById(R.id.add_goal);
         insertPoint = (ViewGroup) rootView.findViewById(R.id.insert_point);
         scrollView = (ScrollView) rootView.findViewById(R.id.scroll_view);
 
@@ -53,6 +55,9 @@ public class GoalsTab extends Fragment {
             public void onClick(View view) {
 
                 final Button newGoal = new Button(getActivity());
+                newGoal.setBackgroundColor(0xFF8285C0);
+                newGoal.setTextColor(0xFFFFFFFF);
+                newGoal.setPaddingRelative(0, 8, 0, 0);
 
                 LayoutInflater li = LayoutInflater.from(getActivity());
                 View promptsView = li.inflate(R.layout.prompts, null);
