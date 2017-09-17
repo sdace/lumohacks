@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,9 +9,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.helladank.lumohacks.TabbedActivity">
 
-    <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
+        <LinearLayout
+            android:id="@+id/insert_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/add_goal"
+                android:layout_width="68dp"
+                android:layout_height="73dp"
+                android:clickable="true"
+                app:fabSize="normal"
+                app:srcCompat="@drawable/add_new_button" />
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
