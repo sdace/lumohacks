@@ -21,6 +21,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.loopj.android.http.*;
+
+import cz.msebera.android.httpclient.Header;
+
+
 /**
  * Created by terb on 16/09/17.
  */
@@ -48,17 +53,46 @@ public class CommunityTab extends Fragment {
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.community_tab, container, false);
         listView = rootView.findViewById(R.id.community_list);
-
-        ArrayList<HashMap<String, String>> usersList;
-        usersList = parseJSON(jsonStr);
-        ListAdapter adapter = new SimpleAdapter(getActivity().getApplicationContext(), usersList,
-                R.layout.community_user, new String[]{TAG_FIRST_NAME, TAG_LAST_NAME,
-                TAG_USER_NAME, TAG_GOAL, TAG_STREAK}, new int[]{R.id.firstName,
-                R.id.lastName, R.id.userName, R.id.goal, R.id.streak});
-
-        listView.setAdapter(adapter);
+        getCommunity();
 
         return rootView;
+    }
+
+    private void getCommunity() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(url, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                ArrayList<HashMap<String, String>> usersList;
+                String res = new String(response);
+
+                Log.d(TAG, "success!");
+                Log.d(TAG, res);
+                usersList = parseJSON(res);
+                ListAdapter adapter = new SimpleAdapter(getActivity().getApplicationContext(), usersList,
+                        R.layout.community_user, new String[]{TAG_FIRST_NAME, TAG_LAST_NAME,
+                        TAG_USER_NAME, TAG_GOAL, TAG_STREAK}, new int[]{R.id.firstName,
+                        R.id.lastName, R.id.userName, R.id.goal, R.id.streak});
+
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
     }
 
     private ArrayList<HashMap<String, String>> parseJSON(String json) {
