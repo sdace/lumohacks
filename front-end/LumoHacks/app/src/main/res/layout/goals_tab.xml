@@ -9,6 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.helladank.lumohacks.TabbedActivity">
 
+
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
@@ -31,9 +32,18 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="8px"
                 android:backgroundTint="@android:color/transparent"
+                android:visibility="invisible"
                 android:clickable="true"
                 app:srcCompat="@drawable/add_new_button"
-                android:layout_weight="0.88" />
+                android:layout_weight="0.88"
+                />
+
+            <ProgressBar
+                android:id="@+id/indeterminateBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.88"
+                android:visibility="invisible" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

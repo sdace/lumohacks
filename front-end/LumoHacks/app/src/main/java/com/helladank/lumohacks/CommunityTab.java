@@ -35,24 +35,25 @@ public class CommunityTab extends Fragment {
     private static final String TAG = "CommunityTab";
     private static final String TAG_FIRST_NAME = "firstname";
     private static final String TAG_LAST_NAME = "lastname";
-    private static final String TAG_USER_NAME = "username";
     private static final String TAG_GOAL = "goal";
     private static final String TAG_STREAK = "streak";
 
-    // url to connect to
-    private static final String url = "https://stormy-everglades-33980.herokuapp.com/users/loadfriends";
+        // url to connect to
+        private static final String url = "https://stormy-everglades-33980.herokuapp.com/users/loadfriends";
 
     // listview
     private ListView listView;
     private View rootView;
     private String jsonStr;
-
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.community_tab, container, false);
         listView = rootView.findViewById(R.id.community_list);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.indeterminateBar);
+
         getCommunity();
 
         return rootView;
@@ -64,6 +65,7 @@ public class CommunityTab extends Fragment {
 
             @Override
             public void onStart() {
+                progressBar.setVisibility(View.VISIBLE);
                 // called before request is started
             }
 
@@ -74,6 +76,7 @@ public class CommunityTab extends Fragment {
 
                 Log.d(TAG, "success!");
                 Log.d(TAG, res);
+                progressBar.setVisibility(View.INVISIBLE);
                 usersList = parseJSON(res);
                 ListAdapter adapter = new SimpleAdapter(getActivity().getApplicationContext(), usersList,
                         R.layout.community_user, new String[]{"fullname", "goal", "streak"}, new int[]{R.id.fullName, R.id.goal, R.id.streak});

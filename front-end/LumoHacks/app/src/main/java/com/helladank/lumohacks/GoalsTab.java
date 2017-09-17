@@ -21,33 +21,55 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class GoalsTab extends Fragment {
 
     public static final String GOAL_NUMBER = "com.helladank.GOAL_NUMBER";
+    public static final String TAG = "GoalsTab";
 
     private ImageButton btnAddGoal;
+    private ProgressBar progressBar;
     private ArrayList<Button> goals = new ArrayList<>(0);
     private ArrayList<String> goalNames = new ArrayList<>(0);
 
+    // url to connect to
+    private static final String url = "https://stormy-everglades-33980.herokuapp.com/loadgoals";
+    private static final String saveUrl = "https://stormy-everglades-33980.herokuapp.com/savegoals";
+
     private ViewGroup insertPoint;
     private ScrollView scrollView;
+    private View rootView;
     private int goalNum = 0;
+    private ArrayList<String> goalsList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
 
+        getGoals();
 
 
-        View rootView = inflater.inflate(R.layout.goals_tab, container, false);
+
+        rootView = inflater.inflate(R.layout.goals_tab, container, false);
 
         btnAddGoal = (ImageButton) rootView.findViewById(R.id.add_goal);
         insertPoint = (ViewGroup) rootView.findViewById(R.id.insert_point);
         scrollView = (ScrollView) rootView.findViewById(R.id.scroll_view);
+        progressBar = (ProgressBar) rootView.findViewById(R.id.indeterminateBar);
 
         btnAddGoal.setOnClickListener(new View.OnClickListener() {
 
@@ -77,6 +99,7 @@ public class GoalsTab extends Fragment {
                                         // edit text
                                         newGoal.setText(userInput.getText());
                                         goalNames.add(userInput.getText().toString());
+                                        saveGoal(userInput.getText().toString());
                                         newGoal.setOnClickListener(new View.OnClickListener() {
 
                                             @Override
@@ -90,6 +113,7 @@ public class GoalsTab extends Fragment {
                                         insertPoint.addView(newGoal, goalNum);
                                         goalNum++;
                                         scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+
                                     }
                                 })
                         .setNegativeButton("Cancel",
@@ -110,5 +134,116 @@ public class GoalsTab extends Fragment {
 
 
         return rootView;
+    }
+
+    private void getGoals() {
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(url, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                progressBar.setVisibility(View.VISIBLE);
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                String res = new String(response);
+
+                Log.d(TAG, "success!");
+                Log.d(TAG, res);
+                goalsList = parseJSON(res);
+
+                for (int i = 0; i < goalsList.size(); i++) {
+                    final Button newGoal = new Button(getActivity());
+                    newGoal.setBackgroundColor(0xFF8285C0);
+                    newGoal.setTextColor(0xFFFFFFFF);
+
+                    newGoal.setText(goalsList.get(i));
+                    goals.add(newGoal);
+                    insertPoint.addView(newGoal, i);
+
+                    newGoal.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                            intent.putExtra(GOAL_NUMBER, goals.indexOf(newGoal));
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+                progressBar.setVisibility(View.INVISIBLE);
+                btnAddGoal.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
+
+    private void saveGoal(String goalText) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("goal", goalText);
+
+        client.post(saveUrl, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onStart() {
+                // called before request is started
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                String res = new String(response);
+
+                Log.d(TAG, "success!");
+                Log.d(TAG, res);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+
+            @Override
+            public void onRetry(int retryNo) {
+                // called when request is retried
+            }
+        });
+    }
+
+    private ArrayList<String> parseJSON(String json) {
+        if (json != null) {
+            try {
+// Hashmap for ListView
+                ArrayList<String> goalsList= new ArrayList<String>();
+                JSONObject jsonObj = new JSONObject(json);
+
+// Getting JSON Array node
+                JSONArray users = jsonObj.getJSONArray("body");
+
+// looping through All Students
+                for (int i = 0; i < users.length(); i++) {
+                    JSONObject c = users.getJSONObject(i);
+
+                    String goal = c.getString("goal");
+                    goalsList.add(goal);
+                }
+                return goalsList;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 }
