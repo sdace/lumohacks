@@ -1,11 +1,13 @@
 package com.helladank.lumohacks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.ImageButton;
 
@@ -13,7 +15,7 @@ import android.widget.ImageButton;
  * Created by taekw on 2017-09-16.
  */
 
-public class CalendarActivity extends AppCompatActivity {
+public class CalendarActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "CalendarActivity";
 
@@ -43,5 +45,15 @@ public class CalendarActivity extends AppCompatActivity {
                 System.out.println("Oh Yeah!");
             }
         });
+
+        Button cameraButton = (Button) findViewById(R.id.camera);
+
+        cameraButton.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
     }
 }

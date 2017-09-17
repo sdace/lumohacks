@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.helladank.lumohacks.CameraActivity">
+
+
+    <Button
+        android:id="@+id/Bcapture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="launchCamera"
+        android:text="Capture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@android:color/white"
+        app:layout_constraintTop_toBottomOf="@+id/imageView8"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="310dp"
+        android:layout_height="350dp"
+        app:layout_constraintBottom_toTopOf="@+id/Bcapture"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.486"
+        app:srcCompat="@android:drawable/screen_background_light" /><![CDATA[
+
+
+
+
+
+    //app:srcCompat="?attr/actionModeBackground" />
+        //app:srcCompat="?android:attr/floatingToolbarPopupBackgroundDrawable" />
+
+
+
+
+
+
+]]>
+</android.support.constraint.ConstraintLayout>

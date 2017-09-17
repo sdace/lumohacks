@@ -11,9 +11,15 @@
 
     <ImageButton
         android:id="@+id/redX"
-        android:layout_width="match_parent"
+        android:layout_width="396dp"
         android:layout_height="134dp"
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/red_x" />
+
+    <Button
+        android:id="@+id/camera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Take a photo" />
 
 </LinearLayout>
