@@ -13,7 +13,6 @@
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:saveEnabled="true">
 
@@ -22,15 +21,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:saveEnabled="true">
+            android:saveEnabled="true"
+            android:weightSum="1">
 
-            <android.support.design.widget.FloatingActionButton
+            <ImageButton
                 android:id="@+id/add_goal"
-                android:layout_width="68dp"
-                android:layout_height="73dp"
+                android:layout_width="88dp"
+                android:layout_height="61dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8px"
+                android:backgroundTint="@android:color/transparent"
                 android:clickable="true"
-                app:fabSize="normal"
-                app:srcCompat="@drawable/add_new_button" />
+                app:srcCompat="@drawable/add_new_button"
+                android:layout_weight="0.88" />
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>
